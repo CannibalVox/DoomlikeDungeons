@@ -11,6 +11,7 @@ package jaredbgreat.dldungeons;
 
 
 import jaredbgreat.dldungeons.builder.Builder;
+import jaredbgreat.dldungeons.pieces.chests.loothack.LootHack;
 import jaredbgreat.dldungeons.setup.Externalizer;
 import jaredbgreat.dldungeons.themes.Theme;
 import jaredbgreat.dldungeons.themes.ThemeReader;
@@ -90,6 +91,7 @@ public class ConfigHandler {
 	public static void init() {
 		File file = new File(ConfigHandler.configDir.toString() 
 			+ File.separator + Info.ID  + ".cfg");
+        LootHack.initLoothack();
 		Configuration config = new Configuration(file);
 		config.load();
 		

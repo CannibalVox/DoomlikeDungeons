@@ -289,7 +289,7 @@ public class Room extends AbstractRoom {
 			tmp = (endZ - beginZ - 3);
 			z = dungeon.random.nextInt(tmp) + beginZ + 2;
 			y = dungeon.map.floorY[x][z];
-			chests.add(new WeakChest(x, y, z));
+			chests.add(new WeakChest(x, y, z, level));
 		} else if(dungeon.random.nextBoolean() && !isNode) {
 			tmp = (endX - beginX - 3);
 			x = dungeon.random.nextInt(tmp) + beginX + 2;

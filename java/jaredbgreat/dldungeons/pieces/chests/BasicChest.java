@@ -15,6 +15,7 @@ import jaredbgreat.dldungeons.builder.DBlock;
 
 import java.util.Random;
 
+import jaredbgreat.dldungeons.pieces.chests.loothack.LootHack;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
@@ -43,15 +44,27 @@ public class BasicChest {
 		TileEntityChest contents = (TileEntityChest)world.getTileEntity(x, y, z);
 		if(ConfigHandler.vanillaLoot && (!ConfigHandler.stingyLoot || random.nextBoolean())) 
 			vanillaChest(contents, random);
-		int which = random.nextInt(2);
-		switch (which) {
-		case 0:
-			fillChest(contents, LootType.HEAL, random);
-			break;
-		case 1:
-			fillChest(contents, LootType.GEAR, random);
-			break;
-		}
+
+        int loothackLevel = LootHack.getLevel(level);
+
+        int num = random.nextInt(3) + random.nextInt(3) + 4;
+        for (int i = 0; i < num; i++) {
+            ItemStack treasure = null;
+            if (loothackLevel < 0) {
+                treasure = LootHack.getJunk(0, random);
+            } else if (random.nextInt(7) < level) {
+                treasure = LootHack.getSupplies(loothackLevel, random);
+            } else {
+                treasure = LootHack.getJunk(loothackLevel, random);
+            }
+            if(treasure != null) contents.setInventorySlotContents(random.nextInt(27), treasure);
+        }
+
+        num = random.nextInt(2) + 1;
+        for (int i = 0; i < num; i++) {
+            ItemStack treasure = LootHack.getEquipment(loothackLevel, random);
+            if(treasure != null) contents.setInventorySlotContents(random.nextInt(27), treasure);
+        }
 	}
 	
 	
